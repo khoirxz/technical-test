@@ -1,5 +1,8 @@
 # INSTALASI
 
+Tech Stack yang digunakan :
+Vite + Tailwind + Zustand
+
 clone repositori ini dengan perintah :
 
 ```
@@ -17,4 +20,3 @@ kemidan dilanjut dengan perintah dibawah ini untuk menjalankan proyek pada lingk
 ```
 npm run dev
 ```
-# technical-test
