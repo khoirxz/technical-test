@@ -4,11 +4,12 @@ import axios from "axios";
 import { useStore } from "./store";
 
 import Modal from "./components/Modal";
-import type { BattleEffect, Pokemon } from "./types";
+import { type ProductProps, type BattleEffect, type Pokemon } from "./types";
 
 const App: React.FC = () => {
   // state
   const [open, setOpen] = useState<boolean>(false); // <- state modal tambah
+  const [data, setData] = useState<ProductProps[]>([]);
   const [pokemon, setPokemon] = useState<Pokemon[] | null>(null); // pokemon
   const [battle, setBattle] = useState<BattleEffect | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -60,6 +61,10 @@ const App: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    setData(products);
+  }, [products]);
+
   // handle
   const handleModal = () => {
     editProduct(null);
@@ -73,8 +78,11 @@ const App: React.FC = () => {
   const handleSelectedProduct = (item: number) => {
     editProduct(item);
   };
-
-  console.log(battle);
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setData(
+      products.filter((p) => p.title.toLowerCase().includes(e.target.value))
+    );
+  };
 
   return (
     <div className="font-display relative">
@@ -97,6 +105,7 @@ const App: React.FC = () => {
         <div className="flex flex-row justify-between items-center gap-5">
           <input
             placeholder="Cari"
+            onChange={(e) => handleSearch(e)}
             className="flex-1 border-1 border-zinc-500 px-3 py-2"
           />
           <select>
@@ -107,13 +116,13 @@ const App: React.FC = () => {
         </div>
 
         <div className="min-h-screen">
-          {products.length === 0 ? (
+          {data.length === 0 ? (
             <div className="text-center mt-5 font-bold">
               <h1>Silahkan tambah produk terlebih dahulu</h1>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 p-5 lg:p-0 ">
-              {products.map((item) => (
+              {data.map((item) => (
                 <div
                   key={item.id}
                   className="flex flex-col py-5 group hover:cursor-pointer relative">

@@ -65,7 +65,9 @@ const Modal: React.FC<ModalProps> = ({ open, setOpen }) => {
     <div className="absolute w-screen h-screen bg-zinc-700/50 top-0 left-0">
       <div className="fixed flex flex-col gap-5 bg-white top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 max-w-md w-full p-5 shadow-md rounded-lg">
         <div className="flex flex-row justify-between items-center">
-          <h1 className="font-bold">Tambah Produk</h1>
+          <h1 className="font-bold">
+            {product ? "Edit Produk" : "Tambah Produk"}
+          </h1>
 
           <button className="cursor-pointer" onClick={handleModal}>
             <svg
@@ -197,7 +199,7 @@ const Modal: React.FC<ModalProps> = ({ open, setOpen }) => {
             <button
               type="submit"
               className="bg-zinc-800 text-white px-3 py-2 rounded-lg text-sm cursor-pointer hover:bg-zinc-700">
-              Tambah produk
+              {product ? "Update Produk" : "Tambah produk"}
             </button>
           </div>
         </form>
